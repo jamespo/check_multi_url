@@ -1,10 +1,3 @@
-#!/usr/bin/env python3
-
-# check_multi_url ; -*-Python-*-
-# a simple nagios check to validate multiple URLs in parallel using async
-# Copyright James Powell 2018 / jamespo [at] gmail [dot] com
-# This program is distributed under the terms of the GNU General Public License v3
-
 from collections import namedtuple
 from concurrent.futures._base import TimeoutError
 import asyncio
@@ -13,10 +6,7 @@ import logging
 import re
 import time
 import yaml
-import sys
 from optparse import OptionParser
-
-# https://pawelmhm.github.io/asyncio/python/aiohttp/2016/04/22/asyncio-aiohttp.html
 
 
 class MultiCheck():
@@ -176,33 +166,3 @@ class CheckRunner():
     def nowtime(start_time=0.0):
         '''returns the time as a float to 3dp or time diff if start_time provided'''
         return float("%0.3f" % (float(time.time() - start_time)))
-
-
-def main():
-    '''create options & check objects, run async loop & check results'''
-    mco = MultiCheck()
-    if not mco.runfile_valid:
-        quit("Couldn't parse runfile", 3)
-    cr = CheckRunner(mco)
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(cr.mainloop())
-    cr.check_all_results()
-    if mco.options.get('resultsfile') is not None:
-        cr.save_results()
-    all_passed = mco.runfile['checks_ok'] == mco.runfile['checks_count']
-    rc = (0 if all_passed else 2)
-    quit('%s/%s checks passed' % (mco.runfile['checks_ok'],
-                                  mco.runfile['checks_count']), cr.info, rc)
-
-
-def quit(msg='', info='', status=0):
-    '''display msg & quit'''
-    code2warn = {0: 'OK', 1: 'WARNING', 2: 'CRITICAL', 3: 'UNKNOWN'}
-    if info != '':
-        info = ' (%s)' % info
-    print('%s: %s%s' % (code2warn[status], msg, info))
-    sys.exit(status)
-
-
-if __name__ == '__main__':
-    main()
