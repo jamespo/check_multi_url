@@ -120,6 +120,11 @@ class CheckRunner():
                 self.mco.logger.debug(urltest['info'])
             if urltest['check_ok']:
                 self.mco.runfile['checks_ok'] += 1
+            else:
+                if self.info == '':
+                    self.info = "Failed: %s" % (urltest['url'])
+                else:
+                    self.info += ", %s" % (urltest['url'])
         del self.results          # cleanup
         self.mco.logger.info(self.mco.runfile)
 
