@@ -20,7 +20,7 @@ def main():
     loop.run_until_complete(cr.mainloop())
     cr.check_all_results()
     if mco.options.get('resultsfile') is not None:
-        cr.save_results()
+        mco.save_results()
     all_passed = mco.runfile['checks_ok'] == mco.runfile['checks_count']
     rc = (0 if all_passed else 2)
     quit('%s/%s checks passed' % (mco.runfile['checks_ok'],
