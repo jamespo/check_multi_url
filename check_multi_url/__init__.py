@@ -74,7 +74,7 @@ class MultiCheck():
             resultsfile = resultsfile[:-4] + str(self.nowtime())
         try:
             with open(resultsfile, 'w') as rf:
-                rf.write(yaml.dump(self.mco.runfile))
+                rf.write(yaml.dump(self.runfile))
         except:
             self.logger.error("Can't write to %s" % resultsfile)
 
