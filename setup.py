@@ -18,7 +18,7 @@ setup(name='check_multi_url',
       include_package_data=True,
       zip_safe=True,
       install_requires=[
-        #
+        'aiohttp' 
       ],
       entry_points="""
       # -*- Entry points: -*-
