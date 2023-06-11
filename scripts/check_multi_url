@@ -23,16 +23,18 @@ def main():
         mco.save_results()
     all_passed = mco.runfile['checks_ok'] == mco.runfile['checks_count']
     rc = (0 if all_passed else 2)
-    quit('%s/%s checks passed' % (mco.runfile['checks_ok'],
-                                  mco.runfile['checks_count']), cr.info, rc)
+    quit('%s/%s checks passed' %
+         (mco.runfile['checks_ok'], mco.runfile['checks_count']),
+         cr.info, rc,
+         'duration=%ss' %mco.runfile['duration'])
 
 
-def quit(msg='', info='', status=0):
+def quit(msg='', info='', status=0, perf_str=''):
     '''display msg & quit'''
     code2warn = {0: 'OK', 1: 'WARNING', 2: 'CRITICAL', 3: 'UNKNOWN'}
     if info != '':
         info = ' (%s)' % info
-    print('%s: %s%s' % (code2warn[status], msg, info))
+    print('%s: %s%s|%s' % (code2warn[status], msg, info, perf_str))
     sys.exit(status)
 
 

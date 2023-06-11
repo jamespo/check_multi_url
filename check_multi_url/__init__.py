@@ -173,7 +173,8 @@ class CheckRunner():
                     self.mco.options['total_timeout']
                 self.mco.logger.warning(error)
                 self.info = error
-        self.mco.runfile['finish_time'] = self.nowtime()
+        self.mco.runfile['finish_time'] = self.nowtime()  # needed?
+        self.mco.runfile['duration'] = self.nowtime(self.mco.runfile['start_time'])
 
     @staticmethod
     def nowtime(start_time=0.0):
