@@ -3,10 +3,14 @@ from concurrent.futures._base import TimeoutError
 import asyncio
 import aiohttp
 import logging
+import os
 import re
 import time
 import yaml
 from optparse import OptionParser
+
+
+DEBUG = os.getenv('DEBUG')
 
 
 class MultiCheck():
@@ -91,6 +95,8 @@ class CheckRunner():
     def check_result(result, test):
         '''individually check page result - takes FetchResult & test'''
         checktype, checkmatch = test.split(':', 1)
+        if DEBUG:
+            print('check_result: %s/%s' % (result, test))
         if checktype == 'code':
             # http status code check
             return int(checkmatch) == int(result.status)
@@ -134,11 +140,13 @@ class CheckRunner():
         req_start_time = CheckRunner.nowtime()
         FetchResult = namedtuple('FetchResult', 'content status url req_duration')
         try:
-            async with session.get(url) as resp:
+            async with session.get(url, allow_redirects=False) as resp:
                 content = await resp.text()
                 check_duration = CheckRunner.nowtime(req_start_time)
                 output = FetchResult(content, resp.status, url, check_duration)
                 test_result = CheckRunner.check_result(output, test)
+                if DEBUG:
+                    print('fetch/status: %s' % resp.status)
                 return test_result, check_duration, None
         except (aiohttp.client_exceptions.ClientConnectorError) as excep:
             return False, 0.0, excep
