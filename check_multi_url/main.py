@@ -14,7 +14,7 @@ def cli():
     '''create options & check objects, run async loop & check results'''
     mco = MultiCheck()
     if not mco.runfile_valid:
-        quit("Couldn't parse runfile", 3)
+        quit("Couldn't parse runfile", "", 3)
     cr = CheckRunner(mco)
     loop = asyncio.get_event_loop()
     loop.run_until_complete(cr.mainloop())
