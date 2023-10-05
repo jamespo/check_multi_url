@@ -6,7 +6,7 @@ A nagios / icinga URL checking script written in Python 3 for mass-checking URLs
 
 ## Usage
 
-	Usage: check_multi_url [options]
+	Usage: checkmultiurl [options]
 
 	Options:
 	  -h, --help                                 show this help message and exit
