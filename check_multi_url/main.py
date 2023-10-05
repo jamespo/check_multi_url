@@ -10,7 +10,7 @@ import sys
 from check_multi_url import MultiCheck, CheckRunner
 
 
-def main():
+def cli():
     '''create options & check objects, run async loop & check results'''
     mco = MultiCheck()
     if not mco.runfile_valid:
@@ -26,7 +26,7 @@ def main():
     quit('%s/%s checks passed' %
          (mco.runfile['checks_ok'], mco.runfile['checks_count']),
          cr.info, rc,
-         'duration=%ss' %mco.runfile['duration'])
+         'duration=%ss' % mco.runfile['duration'])
 
 
 def quit(msg='', info='', status=0, perf_str=''):
@@ -36,7 +36,3 @@ def quit(msg='', info='', status=0, perf_str=''):
         info = ' (%s)' % info
     print('%s: %s%s|%s' % (code2warn[status], msg, info, perf_str))
     sys.exit(status)
-
-
-if __name__ == '__main__':
-    main()

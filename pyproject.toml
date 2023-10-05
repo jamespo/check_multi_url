@@ -1,0 +1,34 @@
+[project]
+name = "checkmultiurl"
+description = "Asynchronous Nagios Multi Url check"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.6"
+keywords = ['icinga', 'nagios', 'monitoring', 'commandline', 'url', 'http']
+authors = [{ name = "James Powell", email = "pydev@webscalability.com" }]
+classifiers = [
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.6",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",		
+]
+dependencies = [
+  "aiohttp",
+  "pyyaml"
+]
+dynamic = ["version"]
+
+[project.urls]
+"Source Code" = "https://github.com/jamespo/check_multi_url"
+"Bug Tracker" = "https://github.com/jamespo/check_multi_url/issues"
+
+[project.scripts]
+checkmultiurl = "check_multi_url.main:cli"
+
